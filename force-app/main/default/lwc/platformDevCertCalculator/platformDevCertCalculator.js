@@ -57,6 +57,7 @@ showResourceIfFailed(){
 }
 
 addAttemptHistory(score){
+    
     this.currentHistoryId++;
     this.attemptHistory.push(
         {Id: this.currentHistoryId,  Score : score});
