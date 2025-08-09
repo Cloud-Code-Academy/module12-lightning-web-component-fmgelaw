@@ -1,0 +1,54 @@
+<template>
+    <lightning-card  title="PD1 Calculator">
+        <lightning-button variant="brand" label="Calculate" title="Calculate" slot="actions" class="slds-m-left_x-small" onclick={calculateScore}></lightning-button>
+        <div class="slds-p-horizontal_small">
+            <lightning-input type="number" name="devFundamental" value = {devFundamentalScore} label="Developer Fundamentals: 23%" onchange={handleChange}></lightning-input>
+            <lightning-input type="number" name="processAuto" value = {processAutoScore} label="Process Automation: 30%" onchange={handleChange}></lightning-input>
+            <lightning-input type="number" name="userInterface" value = {userInterfaceScore} label="User Interface: 25%" onchange={handleChange}></lightning-input>
+            <lightning-input type="number" name="testDebugDeploy" value = {testDebugDeployScore} label="Testing, Debugging, and Deployment: 22%" onchange={handleChange}></lightning-input>
+        </div>
+        <div slot="footer">
+           <h1 class="resultText slds-text-title_caps">Certification Result</h1>
+           <p>Certification Score: <span class="scoreText">{certificationScore }%</span></p>
+           <div>
+                <h1 class="slds-text-heading_large">Previous Attempt</h1>
+                <lightning-tabset>
+                    <div for:each={attemptHistory} for:item="attempt" key={attempt.Id}>
+                            <lightning-tab label={attempt.Id}>
+                                <c-score-information
+                                score={attempt.Score}
+                                attempt-id={attempt.Id}
+                                number-of-questions={numberOfQuestions}
+                                ondeleteattempt={deleteAttemptHandler}
+                                >
+                                </c-score-information>
+                            </lightning-tab>
+                    </div>
+                </lightning-tabset>
+           </div>
+
+           <template lwc:if={showResource}>
+                <ul class="resourceList slds-box">
+                        <li>
+                            Resources
+                        </li>
+                        <li>
+                            <a href="https://trailhead.salesforce.com/help?article=Salesforce-Certified-Platform-Developer-Exam-Guide">PD1 Exam Guide</a>
+                        </li>
+                        <li>
+                            <a href="https://focusonforce.com/salesforce-certifications/platform-developer-1/e">Focus on Force</a>
+                        </li>
+                        <li>
+                            <a href="https://courses.salesforcementor.com">Salesforce Mentor</a>
+                        </li>
+                </ul>
+           </template>
+           <template lwc:elseif={showGodJob}>
+                <p>You are ready for your first developer job!</p>
+           </template>
+            <template lwc:else>
+                <p>Press calculate to see your score.</p>
+           </template>
+        </div>
+    </lightning-card>
+</template>
